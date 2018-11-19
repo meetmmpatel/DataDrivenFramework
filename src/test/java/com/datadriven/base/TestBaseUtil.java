@@ -6,7 +6,6 @@ import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -27,7 +26,7 @@ public class TestBaseUtil {
 	public static Properties OR = new Properties();
 	public static FileInputStream fis;
 
-	public static Logger log = Logger.getLogger("devpinoyLogger");
+	
 
 	@BeforeSuite
 	public void testSetup() throws IOException {
@@ -37,12 +36,12 @@ public class TestBaseUtil {
 			fis = new FileInputStream(
 					System.getProperty("user.dir") + "/src/test/resources/properties/properties/Config.properties");
 			config.load(fis);
-			log.debug("config file is loaded!");
+		
 
 			fis = new FileInputStream(
 					System.getProperty("user.dir") + "/src/test/resources/properties/properties/OR.properties");
 			OR.load(fis);
-			log.debug("OR file is loaded!");
+			
 		}
 
 		// Define the values of web driver to read from properties file.
@@ -52,17 +51,17 @@ public class TestBaseUtil {
 			System.setProperty("webdriver.gecko.driver", "/Users/milanpatel/Documents/core/software/geckodriver 2");
 
 			driver = new FirefoxDriver();
-			log.debug("FireFox Started!");
+			
 
 		} else if (config.getProperty("browser").equals("chrome")) {
 			System.setProperty("webdriver.chrome.driver", "/Users/milanpatel/Documents/core/software/chromedriver-3");
 
 			driver = new ChromeDriver();
-			log.debug("Chrome Started!");
+			
 		}
 
 		driver.navigate().to(config.getProperty("testsiteurl"));
-		log.debug("WebSite started" + config.getProperty("testsiteurl"));
+		
 
 		// Read the value of implicit wait from config properties file.
 		driver.manage().timeouts().implicitlyWait(Integer.parseInt(config.getProperty("implicit.wait")),
@@ -87,7 +86,7 @@ public class TestBaseUtil {
 			Thread.sleep(5000);
 			driver.quit();
 		}
-		log.debug("Test is complete and quit");
+		
 
 	}
 
